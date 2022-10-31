@@ -1,0 +1,302 @@
+Madhusudan Soma
+2235155
+
+DDL
+answer 1 -
+create table t_agent(agent_id varchar(25),agent_name varchar(100),agent_email varchar(50),agent_city varchar(100),
+agent_phone decimal(15,0),target_policy decimal(15,0),primary key (agent_id));
+create table t_policy(policy_id varchar(25),policy_name varchar(100),agent_id varchar(25),policy_type varchar(100),
+policy_sum decimal(10,0),policy_status varchar(100),policy_tenure decimal(5,0),foreign key (agent_id) references t_agent(agent_id));
+drop table t_policy;
+create table t_policy(policy_id varchar(25),policy_name varchar(100),agent_id varchar(25),policy_type varchar(100),
+policy_sum decimal(10,0),policy_status varchar(100),policy_tenure decimal(5,0),foreign key (agent_id) references t_agent(agent_id),primary key (policy_id));
+create table t_member(member_id varchar(25),member_name varchar(100),member_email varchar(50),member_city varchar(100),
+member_phone decimal(15,0),agent_id varchar(100),policy_id varchar(100),foreign key (agent_id) references t_agent(agent_id),foreign key (policy_id) references t_policy(policy_id),primary key (member_id));
+answer 2-
+update t_agent set target_policy = 400000 , target_policy =250000
+			where (agent_city ='PUNE' and  agent_id like 'M%') and(agent_city ='CHENNAI' AND agent_id like'M%');		
+answer 3 -
+
+CREATE TABLE t_patient(
+patient_id VARCHAR(10) ,
+patient_name VARCHAR(30) ,
+gender CHAR(2),
+ailment VARCHAR(20) ,
+doctor_id INT(11) ,
+PRIMARY KEY (patient_id),
+FOREIGN KEY (doctor_id) REFERENCES t_doctor(doctor_id)
+);
+
+CREATE TABLE t_doctor(
+doctor_id INT(11) ,
+doctor_name VARCHAR(25) ,
+mobile_no INT(11) ,
+email VARCHAR(30) ,
+specialization VARCHAR(10) ,
+fees INT(7),
+PRIMARY KEY (doctor_id)
+);
+
+CREATE TABLE t_hospital(
+available_doctor INT(11),
+shift_time VARCHAR(20),
+FOREIGN KEY (available_doctor) REFERENCES t_doctor(doctor_id)
+);
+
+answer 4-
+update t_doctor set fees = 350 , fees = 600
+			where (specialization = 'ENT' and  doctor_name like 'J%') and(specialization = 'DERMA' AND doctor_name like'J%');		
+
+answer 5 -
+
+CREATE TABLE t_hall_details(
+hall_id VARCHAR(10) ,
+hall_name VARCHAR(25) ,
+city varchar(20),
+hall_type VARCHAR(10) ,
+capacity INT(10) ,
+cost_per_day INT(10),
+PRIMARY KEY (hall_id)
+);
+
+CREATE TABLE t_customer_details(
+customer_id VARCHAR(10),
+customer_name VARCHAR(20) ,
+mobile_no INT(11) ,
+customer_city VARCHAR(20) ,
+PRIMARY KEY (customer_id)
+);
+
+CREATE TABLE t_hall_booking(
+hall_id VARCHAR(10),
+customer_id VARCHAR(10),
+event_name VARCHAR(20),
+event_date DATE,
+FOREIGN KEY (hall_id) REFERENCES t_hall_details(hall_id),
+FOREIGN KEY (customer_id) REFERENCES t_customer_details(customer_id)
+);
+
+answer 6 -
+
+create table CUSTOMER (PHONE_NUMBER varchar(10) primary key , customer_name varchar(100),email_id varchar(50),  
+address varchar(100));
+
+create table subscription(PHONE_NUMBER varchar(10), plan_amount int,recharge_date date,expiry_date date,
+foreign key(PHONE_NUMBER) references CUSTOMER(PHONE_NUMBER),
+foreign key(plan_amount) references plan(plan_amount));
+
+
+create table plan (plan_amount int primary key , validity_indays int , local_voice_inmins_perday_sn int,
+local_voice_inmins_perday_on int, std_voice_inmins_perday_sn int,std_voice_inmins_perday_on int,
+data_ingb_perday float,sms_perday int,plan_type varchar(10) );
+
+DQL
+
+answer 1 -
+1)create database dql1;
+use dql1;
+create table owner(
+owner_id varchar(20),
+owner_name varchar(20),
+address varchar(20),
+phone_no bigint(20),
+mail_id varchar(20)
+);
+
+alter table owner
+add primary key(owner_id);
+
+create table laptop(
+laptop_id varchar(20) primary key,
+laptop_name varchar(20),
+laptop_ostype varchar(20),
+owner_id varchar(20),
+foreign key(owner_id) references owner(owner_id)
+);
+
+CREATE TABLE ZeeRentals(
+	Rental_id VARCHAR(10) PRIMARY KEY,
+    Cust_id VARCHAR(10),
+    Laptop_id VARCHAR(10),
+    Pick_date DATE,
+    Return_date DATE,
+    Amount BIGINT(20)
+);
+
+
+SELECT Rental_id, Cust_id, Laptop_id, Amount, RPAD(Amount,10,"*") AS Modified_Amount 
+FROM ZeeRentals
+WHERE Amount > 7000 AND YEAR(Pick_Date) = 2020 AND MONTH(Pick_Date) = 05
+ORDER BY Rental_id ASC;
+
+answer 2 -
+
+CREATE TABLE Customer_Details(
+	Customer_id VARCHAR(10) PRIMARY KEY,
+    Customer_Name VARCHAR(30),
+    Phone_No VARCHAR(10),
+    City VARCHAR(20)
+);
+
+CREATE TABLE Purchase_Details(
+	Purchase_id INT(5) PRIMARY KEY,
+    Customer_id VARCHAR(10),
+    FOREIGN KEY (Customer_id) REFERENCES Customer_Details(Customer_id),
+    Pet_id VARCHAR(5),
+    Purchase_Date DATE,
+    Total_Amount_Paid DOUBLE(8,2)
+);
+
+INSERT INTO Customer_Details VALUES('1','ram','8329353869','solapur');
+INSERT INTO Purchase_Details VALUES('6','1','6','2022-10-23',10000.00);
+
+SELECT * FROM Customer_Details;
+SELECT * FROM Purchase_Details;
+
+
+SELECT q1.Customer_id,Customer_Details.Customer_Name,q1.No_of_Pets 
+FROM (SELECT * FROM (SELECT Customer_id, COUNT(Customer_id) AS 
+'No_of_Pets' FROM Purchase_Details GROUP BY Customer_id) q2 WHERE No_of_Pets > 1) q1
+JOIN Customer_Details 
+WHERE q1.Customer_id = Customer_Details.Customer_id ORDER BY q1.Customer_id ASC;
+
+answer 3 - 
+
+create table staff(
+staff_id int(11) primary key,
+staff_name VARCHAR(25),
+supervisor_id int(11),
+salary BIGINt(20),
+join_date DATE,
+dept_id INT(11)
+);
+
+create table department3(
+dept_id INt(11),
+dept_name varchar(25)
+);
+
+Insert into staff values (1,'madhu',10,30000,'2015-10-10',11),(2,'suman',11,35000,'2017-10-10',22),
+(3,'arvind',12,40000,'2019-10-10',33),(4,'aparna',13,45000,'2021-10-10',44);
+
+
+SELECT staff_id,staff_name,salary,dept_id
+FROM STAFF
+WHERE salary > (select avg(salary) from staff where dept_id = 11) AND dept_id=10
+ORDER BY staff_id ASC;
+
+answer 4 -
+
+CREATE TABLE Pizza(
+	Pizza_id VARCHAR(10) PRIMARY KEY,
+    Cust_id VARCHAR(10),
+    Partner_id VARCHAR(10),
+    Pizza_name VARCHAR(50),
+    Pizza_type VARCHAR(50),
+    Order_Date DATE,
+    Amount BIGINT(20)
+);
+
+INSERT INTO Pizza VALUES('10','11','25','paneer','extra cheese','2022-10-26',500);
+
+SELECT Pizza_name,COUNT(Pizza_name) AS 'No.Sold' FROM Pizza GROUP BY Pizza_name;
+
+answer 5 -
+
+create table student(
+stud_id varchar(20) primary key,
+stud_name varchar(40),
+stud_standard varchar(30),
+stud_section varchar(20),
+stud_address varchar(40),	
+stud_fathername varchar(20),
+stud_eMail varchar(20),
+stud_Classteacher_id varchar(20),
+foreign key(stud_Classteacher_id) references teacher(teacher_id)
+);
+create table teacher(
+teacher_id VARCHAR(20) primary key,
+teacher_name VARCHAR(20),
+teacher_address VARCHAR(40),
+teacher_phone VARCHAR(20),
+teacher_email VARCHAR(40),
+class_teacher_standard VARCHAR(20),
+subject_handled VARCHAR(20)
+);
+drop table student;
+insert into student values('aaa','tarun','10th','A','rrrr','ram','aaaaaa','bbbb');
+insert into examinationmarks values('aa','aaa','tarun','10th','A','tel','eng','hin',80,85,40,89,90,96,480,80.00,'a+','good');
+
+SELECT stud_name,stud_standard,student_avg_marks,generalscienc100,mathematics100,generalscienc100+mathematics100 as sciencemathstotal
+FROM examinationmarks where (student_avg_marks >= 75) and (generalscienc100 and mathematics100 >=75 );
+
+DRL
+
+1)create database drl1;
+use drl1;
+
+CREATE TABLE PetOwner
+(
+    OwnerID int PRIMARY KEY,
+    Name char(50),
+    Surname char(50),
+    StreetAddress char(100),
+    City char(100),
+    State char(10),
+    ZipCode int
+);
+
+CREATE TABLE Pet
+(
+    PetID char(10) PRIMARY KEY,
+    Name char(20),
+    Kind char(10),
+    Gender char(6),
+    Age int,
+    OwnerID int
+    );
+    
+    CREATE TABLE ProcedureHistory
+    (
+	PetID char(10),
+	ProcedureDate date,
+	ProcedureType char(50),
+	Description char(100)
+    );
+    
+    
+    
+    ALTER TABLE PetOwner
+ALTER State
+    SET
+    DEFAULT 'Michigan';
+    
+    
+    
+    ALTER TABLE Pet
+ADD FOREIGN KEY (OwnerID) REFERENCES PetOwner(OwnerID);
+    
+    
+    
+    ALTER TABLE ProcedureHistory
+ADD FOREIGN KEY (PetId) REFERENCES Pet(PetID);
+
+procedures
+
+1)
+create database procedurecc;
+USE procedurecc;
+
+DELIMITER $$
+CREATE PROCEDURE `usp_PetProcedureDetails`(IN ProcedureType CHAR(50))
+BEGIN
+	SELECT ProcedureHistory.PetID, Pet.Name AS 'Pet Name', PetOwner.Name AS 'Owner Name', ProcedureHistory.Description 
+	FROM ProcedureHistory
+	JOIN Pet
+	JOIN PetOwner
+	WHERE ProcedureHistory.PetID=Pet.PetID AND Pet.OwnerID=PetOwner.OwnerID AND ProcedureHistory.ProcedureType=ProcedureType;
+END$$
+
+ CALL usp_PetProcedureDetails('Surgery');
+
+
