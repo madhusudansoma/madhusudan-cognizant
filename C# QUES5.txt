@@ -1,0 +1,49 @@
+C# Q5
+Madhusudan Soma 
+2235155
+
+using System;
+
+namespace MScode
+{
+    internal class Calci
+    {
+        public static double GetGrossPay(int hours)
+        {
+            double gPay;
+            if(hours <= 56)
+            {
+                gPay = hours * 80;
+            }
+            else
+            {
+                double extrar = 1.5 * hours;
+                gPay = 56 * 80;
+                int extrahrs = hours - 56;
+                gPay = gPay + (extrahrs * extrar);
+            }
+            return gPay;
+        }
+
+        public static double CalculateTax(double gPay)
+        {
+            double tax = (2 * gPay) / 100;
+            return tax;
+        }
+        public static double CalculateNetPay(int hours)
+        {
+            double gPay = GetGrossPay(hours);
+            double tax = CalculateTax(gPay);
+            double netPay = gPay - tax;
+            return netPay;
+        }
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the number of hours worked : ");
+            int hours = Convert.ToInt32(Console.ReadLine());
+
+            double netPay =  CalculateNetPay(hours);
+            Console.WriteLine($"The calculated Net Pay is ${netPay}.");
+        }
+    }
+}

@@ -1,0 +1,77 @@
+C# Q3
+Madhusudan Soma 
+2235155
+using System;
+
+namespace MaxEnroll
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Total Students Placed in Comp: ");
+            int comp= Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Total Students Placed in Mech: ");
+            int mech = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Total Students Placed in MET: ");
+            int met = Convert.ToInt32(Console.ReadLine());
+            int big = comp;
+            if(comp>mech)
+            {
+                if(comp>met)
+                {
+                    Console.WriteLine("Highest placement in Comp");
+                }
+                else if(comp==met)
+                {
+                    Console.WriteLine("Highest placement in Comp");
+                    Console.WriteLine("Highest placement in MET");
+                }
+                else
+                {
+                    Console.WriteLine("Highest placement in MET");
+                }
+                
+            }
+            else if(mech>comp)
+            {
+                if (mech > met)
+                {
+                    Console.WriteLine("Highest placement in Mech");
+                }
+                else if (mech == met)
+                {
+                    Console.WriteLine("Highest placement in Mech");
+                    Console.WriteLine("Highest placement in MET");
+                }
+                else
+                {
+                    Console.WriteLine("Highest placement in MET");
+                }
+            }
+            else
+            {
+                if (mech > met)
+                {
+                    Console.WriteLine("Highest placement in Comp");
+                    Console.WriteLine("Highest placement in Mech");
+                }
+                else if (mech == met)
+                {
+                    Console.WriteLine("Highest placement in Comp");
+                    Console.WriteLine("Highest placement in Mech");
+                    Console.WriteLine("Highest placement in MET");
+                }
+                else
+                {
+                    Console.WriteLine("Highest placement MET");
+                }
+            }
+
+
+
+            }
+
+        }
+    }
+

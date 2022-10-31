@@ -1,0 +1,50 @@
+C# Q1
+Madhusudan Soma 
+2235155
+using System;
+public class MSarray
+{
+    public static  int[,] MSArray(int n)
+    {
+        int[,] msarr = new int[n,n];
+        for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        if(i==j)
+                        {
+                            msarr[i,j]=0;
+                        }
+                        if(i<j)
+                        {
+                            msarr[i,j]=1;
+                        }
+                        if(i>j)
+                        {
+                            msarr[i,j]=-1;
+                        }
+                        
+                    }
+                }
+        return msarr;
+    }
+    public static void Main(string[] Args)
+    {
+        int num;
+        Console.WriteLine("Enter the Number:");
+        num=Convert.ToInt32(Console.ReadLine());
+        int[,] arr = new int[num,num];
+        arr= MSArray(num);
+        for (int i = 0; i < num; i++)
+                {
+                    Console.WriteLine("\n");
+                    for (int j = 0; j < num; j++)
+                    {
+                        Console.Write("{0}\t", arr[i, j]);
+                        
+                    }
+                    Console.WriteLine("\n\n");
+                }
+    }
+}
+
